@@ -1,5 +1,7 @@
 package http;
 
+import http.session.HttpSession;
+import http.session.SessionContext;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,5 +64,13 @@ public class HttpRequest {
 
 	public String getParameter(String name) {
 		return requestParams.getParameter(name);
+	}
+
+	public HttpCookie getCookies(){
+		return new HttpCookie(headers.getHeader("Cookie"));
+	}
+
+	public HttpSession getSession(){
+		return SessionContext.getSession(getCookies().getCookie("JESSIONID"));
 	}
 }
